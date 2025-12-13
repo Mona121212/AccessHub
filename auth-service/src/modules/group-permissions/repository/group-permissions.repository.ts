@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { DataSource, Repository } from 'typeorm';
+import { FindOptionsWhere } from 'typeorm';
 
 import { GroupPermissions } from '../entities/group-permissions.entity';
 import { GroupUsers } from '../entities/group-users.entity';
@@ -19,7 +20,7 @@ export class GroupPermissionsRepository {
   }
 
   //  getGroup(options)
-  getGroup(where: Partial<GroupPermissions>) {
+  getGroup(where: FindOptionsWhere<GroupPermissions>) {
     return this.groupRepo.findOne({ where });
   }
 
