@@ -20,7 +20,7 @@ import { Organization } from './modules/organizations/organization.entity';
       username: 'postgres',
       password: 'MonaDatabase3355',
       database: 'access_hub',
-      entities: [User, Organization],
+      entities: [User, Organization], // it will change to autoLoadEntities
       synchronize: true, //Safe to use true in development, must disable in production
     }),
 
