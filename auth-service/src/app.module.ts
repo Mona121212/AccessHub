@@ -4,11 +4,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './modules/users/users.module';
 import { OrganizationsModule } from './modules/organizations/organizations.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { GroupPermissionsModule } from './modules/group-permissions/group-permission.module';
 
 // These User and Organization entities will be created later
 import { User } from './modules/users/user.entity';
 import { Organization } from './modules/organizations/organization.entity';
-
 
 @Module({
   imports: [
@@ -28,6 +28,7 @@ import { Organization } from './modules/organizations/organization.entity';
     UsersModule,
     OrganizationsModule,
     AuthModule,
+    GroupPermissionsModule, //hang up the permission module
   ],
 })
 export class AppModule {}
