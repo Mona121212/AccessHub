@@ -4,31 +4,40 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './modules/users/users.module';
 import { OrganizationsModule } from './modules/organizations/organizations.module';
 import { AuthModule } from './modules/auth/auth.module';
+
 import { GroupPermissionsModule } from './modules/group-permissions/group-permission.module';
 
-// These User and Organization entities will be created later
-import { User } from './modules/users/user.entity';
-import { Organization } from './modules/organizations/organization.entity';
+// ✅ AbilityModule path must match the real file location
+// If your file name is ability.module.ts, keep that;
+// otherwise use src/modules/ability/module.ts as below
+import { AbilityModule } from './modules/ability/module';
+
+// ✅ These providers must be explicitly imported;
+// otherwise Nest may reference a different class instance
+import { PermissionAbilityFactory } from './modules/group-permissions/ability/permission-ability.factory';
+import { PermissionAbilityGuard } from './modules/group-permissions/ability/guard';
 
 @Module({
   imports: [
-    // Global TypeORM configuration (ToolJet does this in server/ormconfig.ts + AppModule.register)
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
-      port: 5432, // local Postgres setup
+      port: 5432,
       username: 'postgres',
       password: 'MonaDatabase3355',
       database: 'access_hub',
-      autoLoadEntities: true, // after change it can automatic loading new entities
-      synchronize: true, //Safe to use true in development, must disable in production
+      autoLoadEntities: true, // Automatically load new entities
+      synchronize: true, // Safe for development only, disable in production
     }),
 
-    // Business modules
     UsersModule,
     OrganizationsModule,
     AuthModule,
-    GroupPermissionsModule, //hang up the permission module
+
+    // ✅ Import AbilityModule before business modules for safety
+    AbilityModule,
+    GroupPermissionsModule,
   ],
+  providers: [PermissionAbilityFactory, PermissionAbilityGuard],
 })
 export class AppModule {}
