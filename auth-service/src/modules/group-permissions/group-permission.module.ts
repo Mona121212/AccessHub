@@ -1,3 +1,4 @@
+// src/modules/group-permissions/group-permission.module.ts
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
@@ -9,7 +10,13 @@ import { GroupPermissionsService } from './group-permissions.service';
 import { GroupPermissionsController } from './group-permissions.controller';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([GroupPermissions, GroupUsers, GranularPermissions])],
+  imports: [
+    TypeOrmModule.forFeature([
+      GroupPermissions,
+      GroupUsers,
+      GranularPermissions,
+    ]),
+  ],
   controllers: [GroupPermissionsController],
   providers: [GroupPermissionsRepository, GroupPermissionsService],
   exports: [GroupPermissionsService],
